@@ -1,11 +1,11 @@
 function myFunction() {
   /* Created only for 4 options MCQ can be easily tweaked for more than that*/
-  var input=''; //enter the text you want to convert to the form with removed line,paragraph breaks
+  var input='';//enter the text you want to convert to the form with removed line,paragraph breaks
   var temp;
   Logger.log(input);
   var question;
   var options=[];
-  var form = FormApp.openById(''); //enter form ID
+  var form = FormApp.openById('');//enter form ID
   form.setShuffleQuestions(true);
   form.setTitle("test");
   form.setIsQuiz(true);
@@ -36,8 +36,8 @@ item.createChoice(options[3], false)]);
       temp='';
       continue;
     }
-    if(input[i]=='-'||input[i]=='?'){
-      question=temp+" "+input[i];
+    if(input[i+1]=='A'&& input[i+2]==')'){
+      question=temp+" "+"?";
       temp='';
       continue;
     }
@@ -73,4 +73,15 @@ item.createChoice(options[3], false)]);
     
     temp+=input[i];
   }
+  
+  options.push(temp);
+        var item = form.addMultipleChoiceItem();
+       item.setRequired(true);
+      item.setTitle(question);
+item.setChoices([
+  item.createChoice(options[0], true),
+  item.createChoice(options[1], false),
+item.createChoice(options[2], false),
+item.createChoice(options[3], false)]);
+ item.setPoints(1);     
 }
